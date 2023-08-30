@@ -2,8 +2,10 @@ import Head from "next/head";
 import Layout from "@/components/layout/layout";
 import { Router } from "next/router";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchInputChange = (event) => {
@@ -11,7 +13,7 @@ export default function Home() {
   };
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    Router.push(`/search?.query=${searchQuery}`);
+    router.push(`/search?q=${searchQuery}`);
   };
   return (
     <>

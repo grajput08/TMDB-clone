@@ -1,18 +1,57 @@
 import Head from "next/head";
 import Layout from "@/components/layout/layout";
-import { Router } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Card from "@/components/cards/card";
 
-export default function Search() {
+export async function getServerSideProps(context) {
+  try {
+    const { q } = context?.query;
+    const res = await fetch(
+      `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${q}&api_key=26eb8fe0ea17478b691097b4e10c4ac9`
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data from the server.");
+    }
+
+    const repo = await res.json();
+    return {
+      props: {
+        data: repo || null,
+        q: q || null,
+        error: null,
+      },
+    };
+  } catch (error) {
+    console.error("Error in getServerSideProps:", error);
+    return {
+      props: {
+        data: null,
+        q: null,
+        error: "An error occurred while fetching data.",
+      },
+    };
+  }
+}
+
+export default function Search({ data, q, error }) {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [list, setList] = useState([]);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    Router.push(`/search?.query=${searchQuery}`);
+    router.push(`/search?q=${searchQuery}`);
   };
+
+  useEffect(() => {
+    setList(data?.results);
+  }, [data]);
+
   return (
     <>
       <Head>
@@ -28,9 +67,10 @@ export default function Search() {
         <main data-component="home-page">
           <section className="inner_content">
             <div className="background-image">
+              {console.log("data", data, list)}
               <div className="content-wrap container">
                 <div className="title">
-                  <h2>Welcome.</h2>
+                  <h2>Welcome to Search.</h2>
                   <h3>
                     Millions of movies, TV shows and people to discover. Explore
                     now.
@@ -65,6 +105,23 @@ export default function Search() {
                   </form>
                 </div>
               </div>
+            </div>
+          </section>
+          <section className="container">
+            <div className="row my-4">
+              {list?.map((val) => (
+                <div className="col-12" key={val?.id}>
+                  <Card data={val} />
+                </div>
+              ))}
+              {list?.length === 0 && (
+                <div className="d-flex justified-content-center">
+                  There are no movies that matched your query.
+                </div>
+              )}
+              {error && (
+                <div className="d-flex justified-content-center">{error}</div>
+              )}
             </div>
           </section>
         </main>

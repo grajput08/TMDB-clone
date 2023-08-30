@@ -66,3 +66,44 @@
     }
   }
 }
+
+[data-component="movie-Card"] {
+  margin: 2rem 0;
+  .movie_card {
+    background: linear-gradient(
+      to right,
+      rgba(3, 37, 65, 0.8) 50%,
+      transparent 100%
+    );
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 150px -45px rgba(0, 140, 255, 0.5);
+    .movie_header {
+      h1 {
+        color: #fff;
+        font-weight: 400;
+      }
+      h4 {
+        color: #9ac7fa;
+        font-weight: 400;
+      }
+      .minutes {
+        display: inline-block;
+        margin-top: 10px;
+        color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+      }
+      .type {
+        display: inline-block;
+        color: #cee4fd;
+        margin-left: 10px;
+      }
+      .locandina {
+        height: 120px;
+        box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
