@@ -3,7 +3,7 @@ import Layout from "@/components/layout/layout";
 import { Router } from "next/router";
 import { useState } from "react";
 
-export default function Home() {
+export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchInputChange = (event) => {
