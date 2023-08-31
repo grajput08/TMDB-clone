@@ -285,5 +285,9 @@
 }
 
 [data-component="details-page"] {
-  background-color: gray;
+  .background-image {
+    background-color: white;
+    margin: 20px;
+    min-height: 460px;
+  }
 }

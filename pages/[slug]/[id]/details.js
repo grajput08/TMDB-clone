@@ -1,40 +1,41 @@
-import React from "react";
+/* eslint-disable @next/next/no-img-element */
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Services } from "@/services/search";
 import Layout from "@/components/layout/layout";
+import Card from "@/components/cards/movies-card";
 
 export async function getServerSideProps(context) {
-  try {
-    const { id } = context?.query;
-    const res = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=26eb8fe0ea17478b691097b4e10c4ac9`
-    );
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch data from the server.");
-    }
-
-    const repo = await res.json();
-    return {
-      props: {
-        data: repo || null,
-        query: context?.query || null,
-        error: null,
-      },
-    };
-  } catch (error) {
-    console.error("Error in getServerSideProps:", error);
-    return {
-      props: {
-        data: null,
-        query: null,
-        error: "An error occurred while fetching data.",
-      },
-    };
-  }
+  return {
+    props: {
+      query: context?.query || null,
+    },
+  };
 }
 
-export default function ProductDetails({ query, data, error }) {
+export default function ProductDetails({ query }) {
+  const [details, setDetails] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const [error, setError] = useState(null);
+
+  const getDetails = (ids) => {
+    setLoader(true);
+    Services.getProduct(ids)
+      .then((res) => {
+        setDetails(res?.data);
+        setError("");
+        setLoader(false);
+      })
+      .catch((err) => {
+        setLoader(false);
+        setError(err?.message ? err?.message : "Some Error Occured!!!");
+      });
+  };
+  useEffect(() => {
+    setLoader(true);
+    getDetails(query?.id);
+  }, [query?.id]);
+
   return (
     <div>
       <Head>
@@ -53,8 +54,18 @@ export default function ProductDetails({ query, data, error }) {
               {error}
             </div>
           )}
+          {details && (
+            <section className="container">
+              <div className="background-image ">
+                <div className="row">
+                  <div className="col-12">
+                    <Card data={details} />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
         </div>
-        {console.log("details", data, query, error)}
       </Layout>
     </div>
   );
