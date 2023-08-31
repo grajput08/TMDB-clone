@@ -54,3 +54,29 @@ a {
     font-weight: 500;
   }
 }
+
+.ellipsis {
+  display: -webkit-box !important;
+  max-width: 400px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pagination {
+  background: linear-gradient(
+    to right,
+    rgb(30, 213, 169) 0%,
+    rgb(1, 180, 228) 100%
+  );
+  border-radius: 30px;
+  padding: 5px 0;
+  color: white;
+}
+
+.view-more-btn {
+  color: black !important;
+  border: 2px solid black !important;
+  background-color: white !important;
+}

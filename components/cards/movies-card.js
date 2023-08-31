@@ -57,7 +57,10 @@ export default function moviesCard({ data, type }) {
 
         <div className="card-movie-content">
           <div className="card-movie-content-head">
-            <h3 className="card-movie-title">
+            <h3
+              className="card-movie-title ellipsis"
+              title={type === "tv" ? data?.name : data?.title}
+            >
               {type === "tv" ? data?.name : data?.title}
             </h3>
 
@@ -71,12 +74,13 @@ export default function moviesCard({ data, type }) {
               <span>{formatDate(data?.release_date)}</span>
             </div>
             <div className="movie-running-time">
-              <label>Running time</label>
-              <span>2hr 09min</span>
+              <label>popularity</label>
+              <span>{data?.popularity?.toFixed(1)}</span>
             </div>
           </div>
-          <div className="btn-class mt-2 justify-content-center">
+          <div className="btn-class mt-2 justify-content-between">
             <button onClick={() => handleAdd(data)}>Add WatchList</button>
+            <button className="view-more-btn">View More</button>
           </div>
         </div>
       </div>

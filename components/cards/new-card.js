@@ -60,7 +60,12 @@ export default function moviesCard({ data, mode }) {
 
         <div className="card-movie-content">
           <div className="card-movie-content-head">
-            <h3 className="card-movie-title">{data?.title}</h3>
+            <h3
+              className="card-movie-title ellipsis"
+              title={data?.title || data?.name}
+            >
+              {data?.title || data?.name}
+            </h3>
 
             <div className="ratings">
               <span>{data?.vote_average?.toFixed(1)}</span>/10
@@ -73,13 +78,20 @@ export default function moviesCard({ data, mode }) {
             </div>
             {mode === "watch" ? (
               <div className="btn-class">
-                <button onClick={() => handleRemove(data?.id)}>
+                <button
+                  className=" me-2"
+                  onClick={() => handleRemove(data?.id)}
+                >
                   Remove WatchList
                 </button>
+                <button className="view-more-btn">View More</button>
               </div>
             ) : (
               <div className="btn-class">
-                <button onClick={() => handleAdd(data)}>Add WatchList</button>
+                <button className=" me-2" onClick={() => handleAdd(data)}>
+                  Add WatchList
+                </button>
+                <button className="view-more-btn">View More</button>
               </div>
             )}
           </div>

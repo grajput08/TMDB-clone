@@ -18,10 +18,14 @@ function HeaderBar() {
             <Image src={profilePic} alt="Logo" />
           </Link>
           <Link href="/watch-list">
-            <Stack spacing={4} direction="row" sx={{ color: "white" }}>
+            <Stack
+              spacing={4}
+              direction="row"
+              sx={{ color: "white", display: "flex", alignItems: "center" }}
+            >
               <Badge color="secondary" badgeContent={items.length}>
                 Watch List
-                <ReceiptLongIcon sx={{ margin: "0 10px" }} />
+                <ReceiptLongIcon sx={{ margin: "0 10px", fontSize: "2rem" }} />
               </Badge>
             </Stack>
           </Link>

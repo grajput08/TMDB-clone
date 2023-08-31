@@ -39,11 +39,7 @@ export default function Search({ q }) {
       })
       .catch((err) => {
         setLoader(false);
-        setError(
-          err?.response?.data?.message
-            ? err?.response?.data?.message
-            : "Some Error Occured!!!"
-        );
+        setError(err?.message ? err?.message : "Some Error Occured!!!");
       });
   };
 
@@ -113,7 +109,7 @@ export default function Search({ q }) {
                 Loading.......
               </div>
             ) : (
-              <div className="row my-4 min-vh-100">
+              <div className="row my-4 min-vh-100 d-flex justify-content-center align-content-start">
                 {list?.map((val) => (
                   <div className="col-12" key={val?.id}>
                     <Card data={val} mode="search" />
