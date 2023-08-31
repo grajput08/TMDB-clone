@@ -1,6 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
+import { useDispatch } from "react-redux";
+import { add } from "@/store/watchSlice";
 
-export default function moviesCard({ data }) {
+export default function moviesCard({ data, type }) {
+  const dispatch = useDispatch();
+
   function formatDate(inputDate) {
     if (!inputDate) {
       return "Invalid Date";
@@ -32,9 +37,15 @@ export default function moviesCard({ data }) {
     } ${date.getFullYear()}`;
     return formattedDate;
   }
+
+  const handleAdd = (product) => {
+    dispatch(add(product));
+  };
+
   return (
     <div data-component="new-cards">
       <div className="card-view">
+        {console.log("tete", data)}
         <div
           className="card-header"
           style={{
@@ -46,7 +57,9 @@ export default function moviesCard({ data }) {
 
         <div className="card-movie-content">
           <div className="card-movie-content-head">
-            <h3 className="card-movie-title">{data?.title}</h3>
+            <h3 className="card-movie-title">
+              {type === "tv" ? data?.name : data?.title}
+            </h3>
 
             <div className="ratings">
               <span>{data?.vote_average?.toFixed(1)}</span>/10
@@ -63,7 +76,7 @@ export default function moviesCard({ data }) {
             </div>
           </div>
           <div className="btn-class mt-2 justify-content-center">
-            <button>Add WatchList</button>
+            <button onClick={() => handleAdd(data)}>Add WatchList</button>
           </div>
         </div>
       </div>

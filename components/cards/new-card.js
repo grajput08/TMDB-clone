@@ -1,6 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
+import { useDispatch } from "react-redux";
+import { add, remove } from "@/store/watchSlice";
 
-export default function moviesCard({ data }) {
+export default function moviesCard({ data, mode }) {
+  const dispatch = useDispatch();
+
+  const handleRemove = (productId) => {
+    dispatch(remove(productId));
+  };
+
   function formatDate(inputDate) {
     if (!inputDate) {
       return "Invalid Date";
@@ -32,6 +41,11 @@ export default function moviesCard({ data }) {
     } ${date.getFullYear()}`;
     return formattedDate;
   }
+
+  const handleAdd = (product) => {
+    dispatch(add(product));
+  };
+
   return (
     <div data-component="movies-cards">
       <div className="card-view my-2">
@@ -57,9 +71,17 @@ export default function moviesCard({ data }) {
               <label>Release Date</label>
               <span>{formatDate(data?.release_date)}</span>
             </div>
-            <div className="btn-class">
-              <button>Add WatchList</button>
-            </div>
+            {mode === "watch" ? (
+              <div className="btn-class">
+                <button onClick={() => handleRemove(data?.id)}>
+                  Remove WatchList
+                </button>
+              </div>
+            ) : (
+              <div className="btn-class">
+                <button onClick={() => handleAdd(data)}>Add WatchList</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -116,7 +116,7 @@ export default function Search({ q }) {
               <div className="row my-4 min-vh-100">
                 {list?.map((val) => (
                   <div className="col-12" key={val?.id}>
-                    <Card data={val} />
+                    <Card data={val} mode="search" />
                   </div>
                 ))}
                 {list?.length === 0 && (
