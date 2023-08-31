@@ -51,20 +51,22 @@ export default function ProductDetails({ query }) {
         <div data-component="details-page">
           {error && (
             <div className="d-flex justify-content-center min-vh-100 mt-5">
-              {error}
+              {error} , If you come across any issues with the page, like the
+              API not working properly from the backend, try refreshing the page
+              !.
             </div>
           )}
-          {details && (
-            <section className="container">
-              <div className="background-image ">
+          <section className="container">
+            <div className="background-image ">
+              {details && (
                 <div className="row">
                   <div className="col-12">
                     <Card data={details} />
                   </div>
                 </div>
-              </div>
-            </section>
-          )}
+              )}
+            </div>
+          </section>
         </div>
       </Layout>
     </div>

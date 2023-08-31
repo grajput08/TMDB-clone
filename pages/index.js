@@ -260,7 +260,11 @@ export default function Home({ query }) {
                     </div>
                   )}
                   {error && (
-                    <div className="d-flex justify-content-center">{error}</div>
+                    <div className="d-flex justify-content-center">
+                      {error}, If you come across any issues with the page, like
+                      the API not working properly from the backend, try
+                      refreshing the page !.
+                    </div>
                   )}
                 </div>
               )}

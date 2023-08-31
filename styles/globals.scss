@@ -80,3 +80,9 @@ a {
   border: 2px solid black !important;
   background-color: white !important;
 }
+
+.watch-list {
+  @media (max-width: 768px) and (min-width: 200px) {
+    display: none;
+  }
+}

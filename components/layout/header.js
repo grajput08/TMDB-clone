@@ -24,7 +24,7 @@ function HeaderBar() {
               sx={{ color: "white", display: "flex", alignItems: "center" }}
             >
               <Badge color="secondary" badgeContent={items.length}>
-                Watch List
+                <span className="watch-list">Watch List</span>
                 <ReceiptLongIcon sx={{ margin: "0 10px", fontSize: "2rem" }} />
               </Badge>
             </Stack>

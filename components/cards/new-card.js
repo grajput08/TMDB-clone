@@ -2,11 +2,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { add, remove } from "@/store/watchSlice";
+import { useRouter } from "next/navigation";
 import slugify from "slugify";
 
 export default function moviesCard({ data, mode }) {
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const handleRemove = (productId) => {
     dispatch(remove(productId));
   };
