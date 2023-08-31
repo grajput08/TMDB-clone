@@ -2,6 +2,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { add, remove } from "@/store/watchSlice";
+import slugify from "slugify";
 
 export default function moviesCard({ data, mode }) {
   const dispatch = useDispatch();
@@ -84,14 +85,36 @@ export default function moviesCard({ data, mode }) {
                 >
                   Remove WatchList
                 </button>
-                <button className="view-more-btn">View More</button>
+                <button
+                  className="view-more-btn"
+                  onClick={() =>
+                    router.push(
+                      `${slugify(data?.title, { lower: true })}/${
+                        data?.id
+                      }/details`
+                    )
+                  }
+                >
+                  View More
+                </button>
               </div>
             ) : (
               <div className="btn-class">
                 <button className=" me-2" onClick={() => handleAdd(data)}>
                   Add WatchList
                 </button>
-                <button className="view-more-btn">View More</button>
+                <button
+                  className="view-more-btn"
+                  onClick={() =>
+                    router.push(
+                      `${slugify(data?.title, { lower: true })}/${
+                        data?.id
+                      }/details`
+                    )
+                  }
+                >
+                  View More
+                </button>
               </div>
             )}
           </div>

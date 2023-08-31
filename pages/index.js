@@ -10,7 +10,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SortIcon from "@mui/icons-material/Sort";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CloseIcon from "@mui/icons-material/Close";
 
 export async function getServerSideProps(context) {
   return {
@@ -240,7 +239,6 @@ export default function Home({ query }) {
               </FormControl>
             </div>
 
-            {console.log("tetet", list)}
             <div className="d-flex justify-content-center ">
               {loader ? (
                 <div className="d-flex justify-content-center my-4 min-vh-100">

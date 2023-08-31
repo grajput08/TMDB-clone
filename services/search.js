@@ -14,4 +14,16 @@ export class Services {
       `https://api.themoviedb.org/3/discover/${type}?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sort}&api_key=26eb8fe0ea17478b691097b4e10c4ac9`
     );
   }
+
+  static getProduct(id) {
+    const httpOptions = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    return axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=26eb8fe0ea17478b691097b4e10c4ac9`,
+      httpOptions
+    );
+  }
 }

@@ -2,9 +2,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { add } from "@/store/watchSlice";
+import { useRouter } from "next/navigation";
+import slugify from "slugify";
 
 export default function moviesCard({ data, type }) {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   function formatDate(inputDate) {
     if (!inputDate) {
@@ -45,7 +48,6 @@ export default function moviesCard({ data, type }) {
   return (
     <div data-component="new-cards">
       <div className="card-view">
-        {console.log("tete", data)}
         <div
           className="card-header"
           style={{
@@ -78,9 +80,30 @@ export default function moviesCard({ data, type }) {
               <span>{data?.popularity?.toFixed(1)}</span>
             </div>
           </div>
-          <div className="btn-class mt-2 justify-content-between">
+          <div
+            className={
+              type === "movie"
+                ? "btn-class mt-2 justify-content-between"
+                : "btn-class mt-2 justify-content-center"
+            }
+          >
             <button onClick={() => handleAdd(data)}>Add WatchList</button>
-            <button className="view-more-btn">View More</button>
+            {type === "movie" ? (
+              <button
+                className="view-more-btn"
+                onClick={() =>
+                  router.push(
+                    `${slugify(data?.title, { lower: true })}/${
+                      data?.id
+                    }/details`
+                  )
+                }
+              >
+                View More
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
